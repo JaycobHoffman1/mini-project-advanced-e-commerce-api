@@ -6,73 +6,102 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CustomerForm() {
   const [validated, setValidated] = useState(false);
-  const [newCustomer, setNewCustomer] = useState({name: "", email: "", phone: ""})
+  const [newCustomer, setNewCustomer] = useState({ name: "", email: "", phone: "" });
   const [customers, setCustomers] = useState([]);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewCustomer((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+    event.preventDefault();
+    setValidated(true);
+
+    // check for empty inputs
+    if (!newCustomer.name.trim() || !newCustomer.email.trim() || !newCustomer.phone.trim()) {
+      setError("All fields must be filled out correctly.");
+      setSuccess("");
+      return;
     }
 
-    setValidated(true);
+    if (form.checkValidity() === false) {
+      return;
+    }
+
+    await createNewCustomer();
   };
 
   const createNewCustomer = async () => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/customers", newCustomer);
-      setCustomers(response.data);
-      setNewCustomer({name: "", email: "", phone: ""});
-    } catch(error) {
+      setCustomers((prev) => [...prev, response.data]); // append new customer 
+      setNewCustomer({ name: "", email: "", phone: "" }); // reset form
+      setSuccess("Customer created successfully!");
+      setError("");
+      setValidated(false);
+    } catch (error) {
       console.error("Error creating customer:", error);
+      setError("Error creating customer. Please try again.");
+      setSuccess("");
     }
   };
 
   return (
-    <Form className="mx-5" noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group className="mb-4" md="4" controlId="validationCustom01">
+    <div className="mx-5">
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form.Group className="mb-4" controlId="validationCustom01">
           <Form.Label>Name</Form.Label>
           <Form.Control
             required
             type="text"
             placeholder="Enter customer name"
+            name="name"
+            value={newCustomer.name}
+            onChange={handleInputChange}
           />
-        <Form.Control.Feedback type="invalid">
-            Please provide a valid name.
-        </Form.Control.Feedback>
-        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="mb-4" md="4" controlId="validationCustom02">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-        required
-        type="email"
-        placeholder="Enter customer email address"
-        />
-        <Form.Control.Feedback type="invalid">
-            Please provide a valid email.
-        </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">Provide a valid name</Form.Control.Feedback>
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
-        
-        <Form.Group className="mb-4" md="4" controlId="validationCustom02">
-        <Form.Label>Phone number</Form.Label>
-        <Form.Control
-        required
-        type="tel"
-        placeholder="Enter customer phone number"
-        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-        />
-        <Form.Control.Feedback type="invalid">
-            Please provide a valid phone number (XXX-XXX-XXXX).
-        </Form.Control.Feedback>
+
+        <Form.Group className="mb-4" controlId="validationCustom02">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            required
+            type="email"
+            placeholder="Enter customer email address"
+            name="email"
+            value={newCustomer.email}
+            onChange={handleInputChange}
+          />
+          <Form.Control.Feedback type="invalid">Provide a valid email</Form.Control.Feedback>
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group className="mb-4" controlId="validationCustom03">
+          <Form.Label>Phone number</Form.Label>
+          <Form.Control
+            required
+            type="tel"
+            placeholder="Enter customer phone number"
+            name="phone"
+            value={newCustomer.phone}
+            onChange={handleInputChange}
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          />
+          <Form.Control.Feedback type="invalid">Provide a valid phone number</Form.Control.Feedback>
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
 
         <Button type="submit">Create Customer</Button>
-    </Form>
+
+        {error && <div className="alert alert-danger mt-3">{error}</div>}
+        {success && <div className="alert alert-success mt-3">{success}</div>}
+      </Form>
+    </div>
   );
 }
 

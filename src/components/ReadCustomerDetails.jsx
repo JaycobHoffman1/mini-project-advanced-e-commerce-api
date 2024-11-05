@@ -2,7 +2,9 @@ import React from "react";
 
 function ReadCustomerDetails() {
     return (
-        <h2>Read Customer Details</h2>
+        <div>
+            <p>This page is under construction for now. Please check back later!</p>
+        </div>
     )
 }
 
