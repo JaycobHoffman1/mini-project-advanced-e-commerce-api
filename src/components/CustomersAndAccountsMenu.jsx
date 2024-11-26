@@ -7,10 +7,8 @@ function CustomersAndAccountsMenu() {
         <div className="m-5">
             <h1 className="display-6 mb-4">Customers and Accounts Menu</h1>
             <ul>
-                <li className="list-unstyled"><NavLink to="/CreateCustomerForm">Create Customer Form</NavLink></li>
-                <li className="list-unstyled"><NavLink to="/UpdateCustomerForm">Update Customer Form</NavLink></li>
-                <li className="list-unstyled"><NavLink to="/ReadCustomerDetails">Read Customer Details</NavLink></li>
-                <li className="list-unstyled"><NavLink to="/DeleteCustomerInformation">Delete Customer Information</NavLink></li>
+                <li className="list-unstyled"><NavLink to="/CreateCustomerForm">Add Customer</NavLink></li>
+                <li className="list-unstyled"><NavLink to="/ListAllCustomers">View Customers</NavLink></li>
             </ul>
         </div>
     )

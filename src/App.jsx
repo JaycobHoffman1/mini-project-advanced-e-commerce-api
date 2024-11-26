@@ -5,13 +5,11 @@ import ProductsMenu from "./components/ProductsMenu";
 import OrderProcessing from "./components/OrderProcessing";
 import CustomerForm from "./components/CreateCustomerForm";
 import UpdateCustomerForm from "./components/UpdateCustomerForm";
-import ReadCustomerDetails from "./components/ReadCustomerDetails";
-import DeleteCustomerInformation from "./components/DeleteCustomerInformation";
+import ListAllCustomers from "./components/ListAllCustomers";
 import ProductForm from "./components/CreateProductForm";
 import UpdateProductForm from "./components/UpdateProductForm";
-import ReadProductDetails from "./components/ReadProductDetails";
 import ListAllProducts from "./components/ListAllProducts";
-import DeleteProductInformation from "./components/DeleteProductInformation";
+import NotFound from "./components/NotFound";
 import { Route, Routes } from "react-router-dom";
 import CustomersAndAccountsMenu from "./components/CustomersAndAccountsMenu";
 
@@ -25,14 +23,12 @@ function App() {
         <Route path="/OrderProcessing" element={<OrderProcessing />}/>
         <Route path="/CustomersAndAccountsMenu/" element={<CustomersAndAccountsMenu />}/>
         <Route path="/CreateCustomerForm" element={<CustomerForm />}/>
-        <Route path="/UpdateCustomerForm" element={<UpdateCustomerForm />}/>
-        <Route path="/ReadCustomerDetails" element={<ReadCustomerDetails />}/>
-        <Route path="/DeleteCustomerInformation" element={<DeleteCustomerInformation />}/>
+        <Route path="/UpdateCustomerForm/:id" element={<UpdateCustomerForm />}/>
+        <Route path="/ListAllCustomers" element={<ListAllCustomers />}/>
         <Route path="/CreateProductForm" element={<ProductForm />}/>
-        <Route path="/UpdateProductForm" element={<UpdateProductForm/>}/>
-        <Route path="/ReadProductDetails" element={<ReadProductDetails/>}/>
+        <Route path="/UpdateProductForm/:id" element={<UpdateProductForm />}/>
         <Route path="/ListAllProducts" element={<ListAllProducts/>}/>
-        <Route path="/DeleteProductInformation" element={<DeleteProductInformation />}/>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </>
   )

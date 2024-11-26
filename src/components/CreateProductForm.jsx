@@ -38,7 +38,6 @@ function ProductForm() {
   const createNewProduct = async () => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/products", newProduct);
-      setProducts((prev) => [...prev, response.data]); // append new product 
       setNewProduct({ name: "", price: "" }); // reset form
       setSuccess("Product created successfully!");
       setError("");
