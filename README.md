@@ -20,15 +20,15 @@ Users can interact with the API through an intuitive UI built in React.
 
 - E-commerce API homepage:
 
-![Advanced E-commerce API homepage]("C:\Users\jayco\OneDrive\Pictures\2024\screenshot3.png")
+![Advanced E-commerce API homepage](screenshot3.png)
 
 - Creating account for "John Doe":
 
-![Advanced E-commerce API "Create Customer" form]("C:\Users\jayco\OneDrive\Pictures\2024\screenshot1.png")
+![Advanced E-commerce API "Create Customer" form](screenshot1.png)
 
 - Listing all available products:
 
-![Advanced E-commerce API "View Products" form]("C:\Users\jayco\OneDrive\Pictures\2024\screenshot2.png")
+![Advanced E-commerce API "View Products" form](screenshot2.png)
 
 ### Errors
 
